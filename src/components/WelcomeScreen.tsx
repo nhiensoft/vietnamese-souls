@@ -2,6 +2,13 @@ import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
 import { HandHelping, Mountain, UtensilsCrossed, HeartHandshake, Vote } from 'lucide-react'
+import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
+import { ProvinceGrid } from '@/components/ProvinceGrid'
+import { ContentSections } from '@/components/ContentSections'
+import { AboutHOU } from '@/components/AboutHOU'
+import { CommunityForm } from '@/components/CommunityForm'
+import { PromoBanners } from '@/components/PromoBanners'
 
 const floatIcons = [
   { icon: HandHelping, label: 'Đoàn kết COVID', style: 'left-[6%] top-[18%]', color: 'text-rose-500' },
@@ -88,7 +95,7 @@ function ArcTitle() {
   )
 }
 
-export function WelcomeScreen() {
+function HeroSection() {
   return (
     <div className="welcome-root relative min-h-screen overflow-hidden bg-gradient-to-b from-sky-100 via-amber-50/80 to-white">
       <div className="welcome-bg pointer-events-none absolute inset-0">
@@ -165,6 +172,25 @@ export function WelcomeScreen() {
           </div>
         </div>
       </div>
+    </div>
+  )
+}
+
+export function WelcomeScreen() {
+  return (
+    <div className="min-h-screen bg-background">
+      <SiteHeader />
+      <main id="main-content">
+        <HeroSection />
+        <div className="container mx-auto max-w-5xl px-4 py-10">
+          <PromoBanners />
+        </div>
+        <ProvinceGrid />
+        <ContentSections />
+        <AboutHOU />
+        <CommunityForm />
+      </main>
+      <SiteFooter />
     </div>
   )
 }

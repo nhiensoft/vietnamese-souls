@@ -4,6 +4,8 @@ import { WelcomeScreen } from '@/components/WelcomeScreen'
 import { ExplorePage } from '@/pages/ExplorePage'
 import { StoriesPage } from '@/pages/StoriesPage'
 import { LoginPage } from '@/pages/LoginPage'
+import { AboutPage } from '@/pages/AboutPage'
+import { ContactPage } from '@/pages/ContactPage'
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
         <Route path="/" element={<WelcomeScreen />} />
         <Route path="/explore" element={<ExplorePage />} />
         <Route path="/stories" element={<StoriesPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
