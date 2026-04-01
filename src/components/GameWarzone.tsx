@@ -33,7 +33,7 @@ export function GameWarzone({ className }: { className?: string }) {
           href={GAME_URL}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative flex min-h-[220px] items-center justify-center bg-gradient-to-br from-slate-800 via-slate-900 to-zinc-950 md:min-h-[280px]"
+          className="group relative flex min-h-[220px] cursor-pointer items-center justify-center bg-gradient-to-br from-slate-800 via-slate-900 to-zinc-950 md:min-h-[280px]"
         >
           <div
             className="pointer-events-none absolute inset-0 opacity-40"
@@ -49,7 +49,7 @@ export function GameWarzone({ className }: { className?: string }) {
             <span className="rounded-full bg-black/40 px-3 py-1 text-xs text-stone-300">
               Hình bộ đội — minh họa
             </span>
-            <span className="flex h-16 w-28 items-center justify-center rounded-xl bg-[#c41e1e] text-white shadow-lg transition group-hover:scale-105 group-hover:bg-[#a01818]">
+            <span className="flex h-16 w-28 items-center justify-center rounded-xl bg-[#c41e1e] text-white shadow-lg transition-all duration-200 group-hover:scale-105 group-hover:bg-[#a01818]">
               <Play className="size-9 fill-current" aria-hidden />
               <span className="sr-only">Play</span>
             </span>

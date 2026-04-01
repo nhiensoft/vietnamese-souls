@@ -1,13 +1,14 @@
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { HandHelping, Mountain, UtensilsCrossed, HeartHandshake, Vote } from 'lucide-react'
 
 const floatIcons = [
-  { emoji: '🤝', label: 'Đoàn kết COVID', style: 'left-[6%] top-[18%]' },
-  { emoji: '🏞️', label: 'Cảnh đẹp', style: 'right-[8%] top-[22%]' },
-  { emoji: '🍜', label: 'Ẩm thực', style: 'left-[10%] bottom-[28%]' },
-  { emoji: '💚', label: 'Tình nguyện', style: 'right-[12%] bottom-[32%]' },
-  { emoji: '🗳️', label: 'Bầu cử', style: 'left-[18%] top-[42%]' },
+  { icon: HandHelping, label: 'Đoàn kết COVID', style: 'left-[6%] top-[18%]', color: 'text-rose-500' },
+  { icon: Mountain, label: 'Cảnh đẹp', style: 'right-[8%] top-[22%]', color: 'text-emerald-500' },
+  { icon: UtensilsCrossed, label: 'Ẩm thực', style: 'left-[10%] bottom-[28%]', color: 'text-amber-500' },
+  { icon: HeartHandshake, label: 'Tình nguyện', style: 'right-[12%] bottom-[32%]', color: 'text-green-500' },
+  { icon: Vote, label: 'Bầu cử', style: 'left-[18%] top-[42%]', color: 'text-blue-500' },
 ]
 
 function ThreeGirlsIllustration({ className }: { className?: string }) {
@@ -94,25 +95,28 @@ export function WelcomeScreen() {
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_rgba(56,189,248,0.25),_transparent_55%)]" />
       </div>
 
-      {floatIcons.map((item, i) => (
-        <div
-          key={item.label}
-          className={cn(
-            'welcome-float-in pointer-events-none absolute text-3xl sm:text-4xl',
-            item.style
-          )}
-          style={{
-            animationDelay: `${0.85 + i * 0.1}s`,
-            animationFillMode: 'forwards',
-          }}
-          title={item.label}
-          aria-hidden
-        >
-          <span className="inline-block rounded-full bg-white/50 p-2 shadow-sm backdrop-blur-sm">
-            {item.emoji}
-          </span>
-        </div>
-      ))}
+      {floatIcons.map((item, i) => {
+        const Icon = item.icon
+        return (
+          <div
+            key={item.label}
+            className={cn(
+              'welcome-float-in pointer-events-none absolute',
+              item.style
+            )}
+            style={{
+              animationDelay: `${0.85 + i * 0.1}s`,
+              animationFillMode: 'forwards',
+            }}
+            title={item.label}
+            aria-hidden
+          >
+            <span className="inline-flex items-center justify-center rounded-full bg-white/60 p-2.5 shadow-md backdrop-blur-sm">
+              <Icon className={cn('size-6 sm:size-7', item.color)} strokeWidth={1.8} />
+            </span>
+          </div>
+        )
+      })}
 
       <div className="relative z-10 mx-auto flex max-w-4xl flex-col items-center px-4 pb-16 pt-10 sm:pt-14">
         <div

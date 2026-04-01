@@ -25,7 +25,7 @@ export function PromoBanners({ className }: { className?: string }) {
             <Link
               key={item.label}
               to={item.to}
-              className="inline-flex items-center gap-1 rounded-full bg-white/15 px-4 py-2 text-xs font-medium backdrop-blur-sm transition hover:bg-white/25 sm:text-sm"
+              className="inline-flex cursor-pointer items-center gap-1 rounded-full bg-white/15 px-4 py-2 text-xs font-medium backdrop-blur-sm transition-colors duration-200 hover:bg-white/25 sm:text-sm"
             >
               {item.label}
               <ChevronRight className="size-3.5 opacity-80" />

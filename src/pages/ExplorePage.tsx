@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react'
 import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import { PromoBanners } from '@/components/PromoBanners'
 import { GameWarzone } from '@/components/GameWarzone'
 import { articles, ARTICLE_CATEGORIES, type Article } from '@/data/articles'
@@ -9,7 +10,7 @@ import { cn } from '@/lib/utils'
 function ArticleCard({ article }: { article: Article }) {
   return (
     <article
-      className="group flex flex-col rounded-2xl border border-border bg-card p-5 shadow-sm transition hover:border-[hsl(var(--vn-red)/0.35)] hover:shadow-md"
+      className="group flex flex-col rounded-2xl border border-border bg-card p-5 shadow-sm transition-all duration-200 hover:border-[hsl(var(--vn-red)/0.35)] hover:shadow-md"
     >
       <span className="mb-2 inline-flex w-fit rounded-full bg-muted px-2.5 py-0.5 text-xs font-medium text-muted-foreground">
         {article.category}
@@ -45,7 +46,7 @@ export function ExplorePage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="container mx-auto max-w-5xl space-y-10 px-4 py-10">
+      <main id="main-content" className="container mx-auto max-w-5xl space-y-10 px-4 py-10">
         <header className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Khám phá</h1>
           <p className="max-w-2xl text-muted-foreground">
@@ -64,7 +65,9 @@ export function ExplorePage() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
             <div className="relative flex-1">
               <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+              <label htmlFor="explore-search" className="sr-only">Tìm kiếm bài viết</label>
               <input
+                id="explore-search"
                 type="search"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
@@ -80,7 +83,7 @@ export function ExplorePage() {
                 type="button"
                 onClick={() => setCategory(c)}
                 className={cn(
-                  'rounded-full px-4 py-1.5 text-sm font-medium transition',
+                  'cursor-pointer rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200',
                   category === c
                     ? 'bg-[hsl(var(--vn-red))] text-white shadow'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
@@ -105,9 +108,7 @@ export function ExplorePage() {
           )}
         </section>
       </main>
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} VIETNAMESE SOULS — Đại học Mở Hà Nội
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

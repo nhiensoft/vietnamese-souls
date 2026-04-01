@@ -108,15 +108,33 @@
 }
 
 .welcome-float-in {
+  opacity: 0;
   animation: welcomeFade 0.75s ease forwards;
-  animation-fill-mode: forwards;
 }
 
 .welcome-float-in span {
-  opacity: 0.42;
+  opacity: 0.55;
 }
 
 .welcome-arc-title {
   opacity: 0;
   animation: welcomeArcReveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) 0.55s forwards;
+}
+
+/* Respect user preference for reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .welcome-bg,
+  .welcome-float-in,
+  .welcome-arc-title {
+    opacity: 1;
+    animation: none;
+  }
 }

@@ -1,5 +1,6 @@
-import { type FormEvent, useMemo, useState } from 'react'
+import { type FormEvent, useEffect, useMemo, useState } from 'react'
 import { SiteHeader } from '@/components/SiteHeader'
+import { SiteFooter } from '@/components/SiteFooter'
 import { PromoBanners } from '@/components/PromoBanners'
 import { stories, STORY_CATEGORIES, type Story } from '@/data/stories'
 import { Search, Send } from 'lucide-react'
@@ -35,11 +36,11 @@ function StoryBlock({
   }
 
   return (
-    <article className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+    <article className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm transition-shadow duration-200 hover:shadow-md">
       <button
         type="button"
         onClick={() => setOpen((o) => !o)}
-        className="flex w-full flex-col gap-2 p-5 text-left transition hover:bg-muted/40"
+        className="flex w-full cursor-pointer flex-col gap-2 p-5 text-left transition-colors duration-200 hover:bg-muted/40"
       >
         <span className="inline-flex w-fit rounded-full bg-[hsl(var(--vn-red)/0.12)] px-2.5 py-0.5 text-xs font-semibold text-[hsl(var(--vn-red))]">
           {story.category}
@@ -75,12 +76,14 @@ function StoryBlock({
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               placeholder="Tên hiển thị (tuỳ chọn)"
+              aria-label="Tên hiển thị"
               className="h-10 w-full rounded-xl border border-input bg-background px-3 text-sm outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vn-red)/0.4)]"
             />
             <textarea
               value={body}
               onChange={(e) => setBody(e.target.value)}
               placeholder="Viết bình luận..."
+              aria-label="Nội dung bình luận"
               rows={3}
               className="w-full resize-y rounded-xl border border-input bg-background px-3 py-2 text-sm outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--vn-red)/0.4)]"
             />
@@ -101,7 +104,18 @@ function StoryBlock({
 export function StoriesPage() {
   const [query, setQuery] = useState('')
   const [category, setCategory] = useState<string>('Tất cả')
-  const [comments, setComments] = useState<StoryComment[]>([])
+  const [comments, setComments] = useState<StoryComment[]>(() => {
+    try {
+      const saved = localStorage.getItem('vs-comments')
+      return saved ? JSON.parse(saved) : []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    localStorage.setItem('vs-comments', JSON.stringify(comments))
+  }, [comments])
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase()
@@ -127,7 +141,7 @@ export function StoriesPage() {
   return (
     <div className="min-h-screen bg-background">
       <SiteHeader />
-      <main className="container mx-auto max-w-3xl space-y-10 px-4 py-10">
+      <main id="main-content" className="container mx-auto max-w-3xl space-y-10 px-4 py-10">
         <header className="space-y-2">
           <h1 className="text-3xl font-bold tracking-tight">Mẩu chuyện</h1>
           <p className="text-muted-foreground">
@@ -143,7 +157,9 @@ export function StoriesPage() {
           </h2>
           <div className="relative">
             <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+            <label htmlFor="stories-search" className="sr-only">Tìm kiếm mẩu chuyện</label>
             <input
+              id="stories-search"
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -158,7 +174,7 @@ export function StoriesPage() {
                 type="button"
                 onClick={() => setCategory(c)}
                 className={cn(
-                  'rounded-full px-4 py-1.5 text-sm font-medium transition',
+                  'cursor-pointer rounded-full px-4 py-1.5 text-sm font-medium transition-colors duration-200',
                   category === c
                     ? 'bg-[hsl(var(--vn-red))] text-white shadow'
                     : 'bg-muted text-muted-foreground hover:bg-muted/80'
@@ -186,9 +202,7 @@ export function StoriesPage() {
           )}
         </section>
       </main>
-      <footer className="border-t py-8 text-center text-sm text-muted-foreground">
-        © {new Date().getFullYear()} VIETNAMESE SOULS — Đại học Mở Hà Nội
-      </footer>
+      <SiteFooter />
     </div>
   )
 }

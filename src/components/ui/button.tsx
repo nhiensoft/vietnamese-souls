@@ -49,4 +49,6 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
 )
 Button.displayName = 'Button'
 
+// shadcn/ui: consumers may import `buttonVariants` for `className` composition
+// eslint-disable-next-line react-refresh/only-export-components -- variant helper is intentional
 export { Button, buttonVariants }
